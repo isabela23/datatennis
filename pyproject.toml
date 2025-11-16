@@ -1,0 +1,17 @@
+[project]
+name = "datatennis"
+version = "0.1.0"
+description = "Projeto de análise de dados e estatísticas de partidas de tênis dos tenistas brasileiros"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "requests>=2.31,<3",
+    "python-dotenv>=1.0,<2"
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
