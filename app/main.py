@@ -1,8 +1,7 @@
 from fastapi import FastAPI 
-from app.schemas.jogador import Jogador, JogadorCreate
 from app.db.session import engine
 from app.db.base import Base
-from app.models import jogador
+from app.api.v1.routers.jogadores import router as jogadores_router
 
 app = FastAPI(title="API Tênis Brasileiro")
 Base.metadata.create_all(bind=engine)
@@ -11,18 +10,4 @@ Base.metadata.create_all(bind=engine)
 def health_check():
     return {"status": "OK"}
 
-@app.get("/jogadores", response_model = list[Jogador])
-def listar_jogadores():
-    return [
-        {"id": 1, "nome": "Thiago Monteiro", "sexo": "M"}
-    ]
-
-@app.post("/jogadores", response_model = Jogador)
-def cria_jogador(jogador: JogadorCreate):
-    jogador_com_id ={
-        "id":3,
-        "nome":jogador.nome,
-        "sexo":jogador.sexo,
-        "ranking":jogador.ranking
-    }
-    return jogador_com_id
+app.include_router(jogadores_router, prefix="/api/v1")
